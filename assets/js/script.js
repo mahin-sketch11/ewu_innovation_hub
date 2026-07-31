@@ -18,29 +18,15 @@ window.addEventListener("load", () => {
 
 const navbar = document.querySelector(".navbar");
 
-
-window.addEventListener("scroll", () => {
-
-
-    if(window.scrollY > 50){
-
-        navbar.style.boxShadow =
-        "0 10px 30px rgba(0,0,0,0.15)";
-
-        navbar.style.transition =
-        "0.3s";
-
-    }
-
-    else{
-
-        navbar.style.boxShadow =
-        "0 5px 20px rgba(0,0,0,0.08)";
-
-    }
-
-
-});
+if (navbar) {
+    navbar.style.background = "#ffffff";
+    navbar.style.backgroundColor = "#ffffff";
+    navbar.style.opacity = "1";
+    navbar.style.backdropFilter = "none";
+    navbar.style.webkitBackdropFilter = "none";
+    navbar.style.boxShadow = "0 5px 20px rgba(0,0,0,0.08)";
+    navbar.style.transition = "none";
+}
 
 
 
@@ -327,4 +313,550 @@ behavior:"smooth"
 });
 
 
+});
+
+/* =========================
+   LOGIN CARD 3D EFFECT
+========================= */
+
+
+const authCard = document.querySelector(".auth-card");
+
+
+if(authCard){
+
+
+authCard.addEventListener("mousemove",(e)=>{
+
+
+    const rect = authCard.getBoundingClientRect();
+
+
+    const x = e.clientX - rect.left;
+
+    const y = rect.top;
+
+
+
+});
+
+
+authCard.addEventListener("mouseleave",()=>{
+
+
+    authCard.style.transform =
+
+    `
+
+    perspective(1000px)
+
+    rotateX(0deg)
+
+    rotateY(0deg)
+
+    scale(1)
+
+    `;
+
+
+});
+
+
+}
+
+
+
+authCard.addEventListener("mouseleave",()=>{
+
+
+    authCard.style.transform =
+
+    `
+
+    perspective(1000px)
+
+    rotateX(0deg)
+
+    rotateY(0deg)
+
+    scale(1)
+
+    `;
+
+
+});
+
+
+
+
+
+
+
+
+/* =========================
+   INPUT FOCUS ANIMATION
+========================= */
+
+
+const inputs =
+document.querySelectorAll(".input-group-custom input");
+
+
+
+inputs.forEach(input=>{
+
+
+input.addEventListener("focus",()=>{
+
+
+    input.parentElement.style.transform =
+    "translateY(-5px)";
+
+
+});
+
+
+
+
+
+input.addEventListener("blur",()=>{
+
+
+    input.parentElement.style.transform =
+    "translateY(0)";
+
+
+});
+
+
+});
+
+
+
+
+
+
+/* =========================
+   PASSWORD SHOW/HIDE
+========================= */
+
+
+const passwordInput =
+document.querySelector(
+'input[name="password"]'
+);
+
+
+
+if(passwordInput){
+
+
+let toggle =
+document.createElement("span");
+
+
+toggle.innerHTML="👁";
+
+
+toggle.style.cursor="pointer";
+
+toggle.style.position="absolute";
+
+toggle.style.right="20px";
+
+toggle.style.marginTop="-43px";
+
+toggle.style.color="#764ba2";
+
+
+
+
+passwordInput.parentElement.style.position="relative";
+
+
+passwordInput.parentElement.appendChild(toggle);
+
+
+
+
+
+toggle.addEventListener("click",()=>{
+
+
+if(passwordInput.type==="password"){
+
+
+passwordInput.type="text";
+
+toggle.innerHTML="🙈";
+
+
+}
+
+else{
+
+
+passwordInput.type="password";
+
+toggle.innerHTML="👁";
+
+
+}
+
+
+
+});
+
+
+}
+
+
+
+
+
+
+/* =========================
+   LOGIN BUTTON CLICK EFFECT
+========================= */
+
+
+const loginBtn =
+document.querySelector(".auth-btn");
+
+
+
+if(loginBtn){
+
+
+loginBtn.addEventListener("click",()=>{
+
+
+loginBtn.innerHTML="Logging in...";
+
+
+});
+
+
+}
+/* =========================
+   LOGIN VALIDATION
+========================= */
+
+
+const loginForm =
+document.getElementById("loginForm");
+
+
+if(loginForm){
+
+
+loginForm.addEventListener("submit",(e)=>{
+
+
+const email =
+document.querySelector(
+'input[name="email"]'
+).value.trim();
+
+
+
+const password =
+document.querySelector(
+'input[name="password"]'
+).value.trim();
+
+
+
+const message =
+document.getElementById("loginMessage");
+
+
+
+message.innerHTML="";
+
+
+
+if(email===""){
+
+
+e.preventDefault();
+
+
+message.innerHTML=
+
+`
+<div class="error-message">
+
+Please enter your email.
+
+</div>
+`;
+
+return;
+
+
+}
+
+
+
+
+const emailPattern =
+/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+
+if(!emailPattern.test(email)){
+
+
+e.preventDefault();
+
+
+message.innerHTML=
+
+`
+<div class="error-message">
+
+Please enter a valid email address.
+
+</div>
+`;
+
+return;
+
+
+}
+
+
+
+
+
+if(password===""){
+
+
+e.preventDefault();
+
+
+message.innerHTML=
+
+`
+<div class="error-message">
+
+Please enter your password.
+
+</div>
+`;
+
+return;
+
+
+}
+
+
+
+
+if(password.length < 6){
+
+
+e.preventDefault();
+
+
+message.innerHTML=
+
+`
+<div class="error-message">
+
+Password must be at least 6 characters.
+
+</div>
+`;
+
+return;
+
+
+}
+
+
+
+
+});
+
+
+
+}
+/* =========================
+   REGISTER VALIDATION
+========================= */
+
+
+const registerForm =
+document.getElementById("registerForm");
+
+
+
+if(registerForm){
+
+
+
+registerForm.addEventListener("submit",(e)=>{
+
+
+const name =
+document.querySelector('input[name="name"]').value.trim();
+
+
+
+const email =
+document.querySelector('input[name="email"]').value.trim();
+
+
+
+const password =
+document.querySelector('input[name="password"]').value.trim();
+
+
+
+const confirmPassword =
+document.querySelector('input[name="confirm_password"]').value.trim();
+
+
+
+const message =
+document.getElementById("registerMessage");
+
+
+
+message.innerHTML="";
+
+
+
+
+
+if(name===""){
+
+
+e.preventDefault();
+
+
+message.innerHTML=
+
+`
+<div class="register-error">
+
+Please enter your name.
+
+</div>
+`;
+
+return;
+
+}
+
+
+
+
+
+const emailPattern =
+/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+
+if(!emailPattern.test(email)){
+
+
+e.preventDefault();
+
+
+message.innerHTML=
+
+`
+<div class="register-error">
+
+Enter a valid email.
+
+</div>
+`;
+
+return;
+
+
+}
+
+
+
+
+
+if(password.length < 6){
+
+
+e.preventDefault();
+
+
+message.innerHTML=
+
+`
+<div class="register-error">
+
+Password must be at least 6 characters.
+
+</div>
+`;
+
+return;
+
+
+}
+
+
+
+
+
+if(password !== confirmPassword){
+
+
+e.preventDefault();
+
+
+message.innerHTML=
+
+`
+<div class="register-error">
+
+Passwords do not match.
+
+</div>
+`;
+
+return;
+
+
+}
+
+
+
+});
+
+
+
+}
+
+/* =========================
+   PASSWORD SHOW / HIDE
+========================= */
+
+const toggleButtons = document.querySelectorAll(".toggle-password");
+
+toggleButtons.forEach(button => {
+    button.addEventListener("click", () => {
+
+        const input = button.parentElement.querySelector("input");
+
+        if (input.type === "password") {
+            input.type = "text";
+            button.textContent = "🙈";
+        } else {
+            input.type = "password";
+            button.textContent = "👁️";
+        }
+
+    });
 });
