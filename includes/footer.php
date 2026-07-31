@@ -4,7 +4,7 @@
 <div class="container text-center">
 
 <p>
-© 2026 EWU Innovation Hub | Developed by Yemete Kudasai
+© 2026 EWU Innovation Hub | Developed by The Problematic Four
 </p>
 
 

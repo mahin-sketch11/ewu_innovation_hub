@@ -656,6 +656,11 @@ body{
 
 }
 
+.feature-card.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 
 
 
