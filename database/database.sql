@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS ideas (
     student_id BIGINT NOT NULL,
     title VARCHAR(255) NOT NULL,
     description TEXT NOT NULL,
-    catagory VARCHAR(100) NOT NULL,
+    category VARCHAR(100) NOT NULL,
     status ENUM('pending', 'approved', 'rejected') DEFAULT 'pending',
     submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (student_id) REFERENCES users(user_id) ON DELETE CASCADE
