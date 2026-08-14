@@ -1587,3 +1587,98 @@ body{
     z-index:10;
 
 }
+
+/* ==========================================
+   STUDENT & FACULTY DASHBOARD STYLES
+========================================== */
+
+/* Dark Dashboard Container */
+body.dashboard-body {
+    background-color: #0f172a;
+    color: #f8fafc;
+    min-height: 100vh;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Fixed Sidebar Styling */
+.sidebar {
+    width: 250px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    background: rgba(15, 23, 42, 0.95) !important;
+    backdrop-filter: blur(12px);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar .nav-link {
+    border-radius: 8px;
+    padding: 10px 15px;
+    color: #94a3b8 !important;
+    transition: all 0.3s ease;
+}
+
+.sidebar .nav-link:hover,
+.sidebar .nav-link.active {
+    background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%) !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3);
+}
+
+/* Main Dashboard Offset */
+.main-content {
+    margin-left: 250px;
+    padding: 30px;
+    min-height: 100vh;
+}
+
+/* Glassmorphic Stat Cards */
+.card.bg-dark {
+    background: rgba(30, 41, 59, 0.7) !important;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 12px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card.bg-dark:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Dashboard Table Customization */
+.table-dark {
+    background-color: transparent !important;
+}
+
+.table-dark th {
+    color: #94a3b8;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+}
+
+.table-dark td {
+    vertical-align: middle;
+    border-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Text Highlights */
+.text-cyan {
+    color: #06b6d4 !important;
+}
+
+/* Responsive Mobile Sidebar */
+@media (max-width: 768px) {
+    .main-content {
+        margin-left: 0;
+        padding: 15px;
+    }
+    .sidebar {
+        position: relative !important;
+        width: 100% !important;
+        height: auto !important;
+    }
+}
