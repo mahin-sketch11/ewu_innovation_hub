@@ -20,7 +20,7 @@ $stmt_total->execute();
 $total_ideas = $stmt_total->get_result()->fetch_assoc()['total'] ?? 0;
 $stmt_total->close();
 
-// SQL Query 2: Count pending ideas
+// SQL Query 2: Count pending ideas submitted by the student
 $sql_pending = "SELECT COUNT(*) AS pending FROM ideas WHERE student_id = ? AND status = 'pending'";
 $stmt_pending = $conn->prepare($sql_pending);
 $stmt_pending->bind_param("i", $student_id);
@@ -28,7 +28,7 @@ $stmt_pending->execute();
 $pending_ideas = $stmt_pending->get_result()->fetch_assoc()['pending'] ?? 0;
 $stmt_pending->close();
 
-// SQL Query 3: Count approved ideas
+// SQL Query 3: Count approved ideas submitted by the student
 $sql_approved = "SELECT COUNT(*) AS approved FROM ideas WHERE student_id = ? AND status = 'approved'";
 $stmt_approved = $conn->prepare($sql_approved);
 $stmt_approved->bind_param("i", $student_id);
@@ -36,7 +36,7 @@ $stmt_approved->execute();
 $approved_ideas = $stmt_approved->get_result()->fetch_assoc()['approved'] ?? 0;
 $stmt_approved->close();
 
-// SQL Query 4: Count total mentorship connections
+// SQL Query 4: Count total mentorship connections for this student
 $sql_mentors = "SELECT COUNT(*) AS mentors FROM mentorship WHERE student_id = ?";
 $stmt_mentors = $conn->prepare($sql_mentors);
 $stmt_mentors->bind_param("i", $student_id);
@@ -45,8 +45,8 @@ $total_mentors = $stmt_mentors->get_result()->fetch_assoc()['mentors'] ?? 0;
 $stmt_mentors->close();
 
 /* 
-   SQL Query 5: Fetch latest 5 submitted ideas matching table schema columns:
-   Using 'category' standard spelling
+   SQL Query 5: Fetch latest 5 submitted ideas matching table schema columns
+   (idea_id, title, category, status, submitted_at)
 */
 $sql_recent = "SELECT idea_id, title, category, status, submitted_at FROM ideas WHERE student_id = ? ORDER BY submitted_at DESC LIMIT 5";
 $stmt_recent = $conn->prepare($sql_recent);
@@ -96,7 +96,7 @@ $recent_ideas_result = $stmt_recent->get_result();
             
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 border-bottom border-secondary">
                 <div>
-                    <h1 class="h2 text-cyan">Welcome, <?php echo htmlspecialchars($_SESSION['name']); ?> 👋</h1>
+                    <h1 class="h2 text-cyan">Welcome, <?php echo htmlspecialchars($_SESSION['name'] ?? $_SESSION['full_name'] ?? 'Student'); ?> 👋</h1>
                     <p class="text-white-50">Manage your innovation projects and mentor interactions.</p>
                 </div>
                 <a href="submit_idea.php" class="btn btn-primary px-3">💡 Submit New Idea</a>
@@ -123,10 +123,12 @@ $recent_ideas_result = $stmt_recent->get_result();
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <div class="card bg-dark text-white p-3 shadow-sm">
-                        <span class="text-white-50 small fw-semibold">Faculty Mentors</span>
-                        <h2 class="text-info mb-0 mt-1"><?php echo $total_mentors; ?></h2>
-                    </div>
+                    <a href="mentors.php" class="text-decoration-none">
+                        <div class="card bg-dark text-white p-3 shadow-sm">
+                            <span class="text-white-50 small fw-semibold">Faculty Mentors</span>
+                            <h2 class="text-info mb-0 mt-1"><?php echo $total_mentors; ?></h2>
+                        </div>
+                    </a>
                 </div>
             </div>
 
@@ -145,6 +147,7 @@ $recent_ideas_result = $stmt_recent->get_result();
                                 <th>Category</th>
                                 <th>Status</th>
                                 <th>Submitted Date</th>
+                                <th class="text-end">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -166,11 +169,14 @@ $recent_ideas_result = $stmt_recent->get_result();
                                             ?>
                                         </td>
                                         <td><?php echo date('M d, Y', strtotime($idea['submitted_at'])); ?></td>
+                                        <td class="text-end">
+                                            <a href="idea_details.php?id=<?php echo $idea['idea_id']; ?>" class="btn btn-sm btn-outline-light">Details</a>
+                                        </td>
                                     </tr>
                                 <?php endwhile; ?>
                             <?php else: ?>
                                 <tr>
-                                    <td colspan="4" class="text-center text-white-50 py-4">No ideas submitted yet. Click "Submit New Idea" to get started!</td>
+                                    <td colspan="5" class="text-center text-white-50 py-4">No ideas submitted yet. Click "Submit New Idea" to get started!</td>
                                 </tr>
                             <?php endif; ?>
                         </tbody>
