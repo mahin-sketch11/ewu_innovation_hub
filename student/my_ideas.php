@@ -7,10 +7,10 @@ include "../config/database.php";
 $student_id = $_SESSION['user_id'];
 
 /*
-   SQL QUERY: Retrieve all ideas submitted by this specific student.
+   SQL QUERY: Retrieve all ideas submitted by this specific student (including file_path).
    Ordered by submission date (newest first).
 */
-$sql = "SELECT idea_id, title, category, description, status, submitted_at 
+$sql = "SELECT idea_id, title, category, description, file_path, status, submitted_at 
         FROM ideas 
         WHERE student_id = ? 
         ORDER BY submitted_at DESC";
@@ -128,6 +128,20 @@ $result = $stmt->get_result();
                                     <div class="accordion-body">
                                         <h6 class="text-cyan mb-2">Description & Problem Statement:</h6>
                                         <p style="white-space: pre-line;"><?php echo htmlspecialchars($idea['description']); ?></p>
+                                        
+                                        <!-- Attached File Download Option -->
+                                        <?php if (!empty($idea['file_path'])): ?>
+                                            <div class="my-3 p-3 bg-dark rounded border border-secondary d-flex align-items-center justify-content-between flex-wrap gap-2">
+                                                <div>
+                                                    <span class="text-white fw-semibold d-block">📄 Attached Document</span>
+                                                    <small class="text-white-50">Uploaded proposal file</small>
+                                                </div>
+                                                <a href="../upload/<?php echo $idea['file_path']; ?>" class="btn btn-sm btn-outline-info" download>
+                                                    📥 Download File
+                                                </a>
+                                            </div>
+                                        <?php endif; ?>
+
                                         <hr class="border-secondary">
                                         <div class="small text-white-50">
                                             📅 Submitted on: <?php echo date('F d, Y \a\t h:i A', strtotime($idea['submitted_at'])); ?>

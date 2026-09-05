@@ -36,8 +36,11 @@ $stmt_approved->execute();
 $approved_ideas = $stmt_approved->get_result()->fetch_assoc()['approved'] ?? 0;
 $stmt_approved->close();
 
-// SQL Query 4: Count total mentorship connections for this student
-$sql_mentors = "SELECT COUNT(*) AS mentors FROM mentorship WHERE student_id = ?";
+// SQL Query 4: Count unique faculty mentors who approved this student's ideas
+$sql_mentors = "SELECT COUNT(DISTINCT r.faculty_id) AS mentors 
+                FROM ideas i 
+                JOIN reviews r ON i.idea_id = r.idea_id 
+                WHERE i.student_id = ? AND i.status = 'approved'";
 $stmt_mentors = $conn->prepare($sql_mentors);
 $stmt_mentors->bind_param("i", $student_id);
 $stmt_mentors->execute();

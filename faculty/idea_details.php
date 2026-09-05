@@ -8,13 +8,14 @@ $idea_id = $_GET['id'] ?? 0;
 
 /*
    FETCH COMPLETE IDEA DETAILS & REVIEW HISTORY
-   Fixed: Removed non-existent review_date column from SQL query
+   Fixed: Included i.file_path to allow file downloads
 */
 $sql = "SELECT 
             i.idea_id, 
             i.title, 
             i.category, 
             i.description, 
+            i.file_path, 
             i.status, 
             i.submitted_at, 
             u.name AS student_name, 
@@ -113,6 +114,19 @@ if (!$idea) {
                     <p style="white-space: pre-line;" class="text-white-50 leading-relaxed fs-6">
                         <?php echo htmlspecialchars($idea['description']); ?>
                     </p>
+
+                    <!-- 🔽 স্টুডেন্টের ফাইল ডাউনলোডের বাটন 🔽 -->
+                    <?php if (!empty($idea['file_path'])): ?>
+                        <div class="my-3 p-3 bg-slate-800 rounded border border-secondary d-flex align-items-center justify-content-between flex-wrap gap-2">
+                            <div>
+                                <span class="text-white fw-semibold d-block">📄 Attachment Document</span>
+                                <small class="text-white-50">Review full proposal file submitted by student</small>
+                            </div>
+                            <a href="../upload/<?php echo $idea['file_path']; ?>" class="btn btn-sm btn-info text-dark fw-bold" download>
+                                📥 Download File
+                            </a>
+                        </div>
+                    <?php endif; ?>
 
                     <div class="mt-4 pt-3 border-top border-secondary text-white-50 small d-flex justify-content-between">
                         <span>📅 Submitted: <?php echo date('F d, Y', strtotime($idea['submitted_at'])); ?></span>

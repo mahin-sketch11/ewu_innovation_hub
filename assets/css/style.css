@@ -121,7 +121,7 @@ body{
 
 .hero{
     min-height:100vh;
-    padding-top:130px; /* OVERLAP FIX: Added clearance for fixed navbar */
+    padding-top:130px; 
     padding-bottom:60px;
     display:flex;
     align-items:center;
@@ -243,7 +243,7 @@ body{
 }
 
 /* =========================
-   HERO CARD
+   HERO CARD (UPDATED: NO MOTION)
 ========================= */
 
 .hero-card{
@@ -254,8 +254,8 @@ body{
     padding:40px 30px;
     border-radius:30px;
     text-align:center;
-    animation:floating 5s infinite ease-in-out;
     box-shadow: 0 25px 50px rgba(0,0,0,.15);
+    transform: none !important;
 }
 
 .hero-card .icon{
@@ -278,10 +278,6 @@ body{
     border-radius:15px;
     margin-top:25px;
     font-weight:600;
-}
-
-@keyframes floating{
-    50%{ transform:translateY(-18px); }
 }
 
 /* =========================
@@ -367,7 +363,7 @@ body{
 }
 
 /* =========================
-   LOGIN & REGISTER PAGES
+   LOGIN & REGISTER PAGES (UPDATED: NO MOTION)
 ========================= */
 
 .auth-section{
@@ -451,12 +447,19 @@ body{
     max-width:420px;
     margin:auto;
     box-shadow: 0 25px 60px rgba(0,0,0,.2);
-    animation:cardAppear 1s ease;
+    transform: none !important;
+    transition: none !important;
 }
 
 .auth-card h2{ font-size:32px; }
 .auth-subtitle{ color:#eee; margin-bottom:25px; }
-.input-group-custom{ margin-bottom:18px; }
+
+.input-group-custom{ 
+    margin-bottom:18px; 
+    transform: none !important;
+    transition: none !important;
+}
+
 .input-group-custom label{ display:block; margin-bottom:7px; }
 
 .input-group-custom input{
@@ -465,10 +468,13 @@ body{
     border:none;
     outline:none;
     border-radius:14px;
+    transform: none !important;
+    transition: none !important;
 }
 
 .input-group-custom input:focus{
     box-shadow: 0 0 0 4px rgba(0,198,255,.3);
+    transform: none !important;
 }
 
 .remember{
@@ -497,11 +503,6 @@ body{
 .auth-btn:hover{ transform:translateY(-4px); }
 .register-text{ text-align:center; margin-top:20px; }
 .register-text a{ color:#00ffff; }
-
-@keyframes cardAppear{
-    from{ opacity:0; transform:translateY(30px); }
-    to{ opacity:1; transform:translateY(0); }
-}
 
 #loginMessage, #registerMessage{
     margin-bottom:20px;
@@ -630,9 +631,9 @@ body.dashboard-body {
 
 .text-cyan { color: #06b6d4 !important; }
 
-/* ==========================================================================
+/* ==========================================
    MOBILE RESPONSIVE & SIDEBAR MENU FIXES
-   ========================================================================== */
+========================================== */
 
 @media(max-width:991px){
     .hero h1{ font-size:42px; }
@@ -643,13 +644,12 @@ body.dashboard-body {
 }
 
 @media(max-width:768px){
-    /* 1. Mobile Menu / Sidebar Styling */
     .hamburger {
-        display: block; /* Show menu toggle button on mobile */
+        display: block;
     }
 
     .nav-links {
-        display: none; /* Hidden by default on mobile */
+        display: none;
         position: absolute;
         top: 80px;
         left: 0;
@@ -662,7 +662,7 @@ body.dashboard-body {
     }
 
     .nav-links.show {
-        display: flex !important; /* Visible when toggled via JavaScript */
+        display: flex !important;
     }
 
     .nav-links a {
@@ -670,9 +670,8 @@ body.dashboard-body {
         text-align: center;
     }
 
-    /* 2. Hero Overlap Fix for Mobile Screen */
     .hero {
-        padding-top: 130px !important; /* Proper clearance from top header */
+        padding-top: 130px !important;
         text-align: center;
     }
 
@@ -703,7 +702,6 @@ body.dashboard-body {
         font-size: 30px;
     }
 
-    /* 3. Dashboard Mobile Layout */
     .main-content {
         margin-left: 0;
         padding: 15px;

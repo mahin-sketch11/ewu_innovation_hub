@@ -27,8 +27,11 @@ $stmt_my_reviews->execute();
 $my_reviews = $stmt_my_reviews->get_result()->fetch_assoc()['my_reviews'] ?? 0;
 $stmt_my_reviews->close();
 
-// Query 3: Total student mentees assigned to this faculty
-$sql_mentorships = "SELECT COUNT(*) AS total_mentored FROM mentorship WHERE faculty_id = ?";
+// Query 3: Total student mentees assigned to this faculty (Approved Ideas)
+$sql_mentorships = "SELECT COUNT(DISTINCT i.student_id) AS total_mentored 
+                    FROM ideas i 
+                    JOIN reviews r ON i.idea_id = r.idea_id 
+                    WHERE r.faculty_id = ? AND i.status = 'approved'";
 $stmt_mentorships = $conn->prepare($sql_mentorships);
 $stmt_mentorships->bind_param("i", $faculty_id);
 $stmt_mentorships->execute();
@@ -78,7 +81,7 @@ $recent_pending_result = $stmt_recent->get_result();
             min-height: 100vh;
         }
         .main-content { 
-             margin-left: 0;  
+            margin-left: 0;  
             flex: 1;          
             padding: 30px;
             width: 100%;
@@ -112,7 +115,7 @@ $recent_pending_result = $stmt_recent->get_result();
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-3 mb-4 border-bottom border-secondary">
             <div>
                 <h1 class="h2 text-cyan mb-1">Faculty Dashboard 👨‍🏫</h1>
-                <p class="text-white-50 mb-0">Welcome, Professor <?php echo htmlspecialchars($_SESSION['name'] ?? 'Faculty'); ?>! Evaluate innovative ideas and mentor students.</p>
+                <p class="text-white-50 mb-0">Welcome, Professor <?php echo htmlspecialchars($_SESSION['name'] ?? $_SESSION['full_name'] ?? 'Faculty'); ?>! Evaluate innovative ideas and mentor students.</p>
             </div>
             <a href="pending_ideas.php" class="btn btn-info text-dark fw-bold px-3">🔍 Review Pending Ideas</a>
         </div>

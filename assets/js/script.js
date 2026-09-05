@@ -6,7 +6,7 @@ window.addEventListener("load", () => {
 });
 
 /* =========================
-   Mobile Sidebar / Menu Toggle (NEWLY ADDED)
+   Mobile Sidebar / Menu Toggle
 ========================= */
 document.addEventListener("DOMContentLoaded", () => {
     const mobileMenuToggle = document.getElementById("mobileMenuToggle");
@@ -16,7 +16,6 @@ document.addEventListener("DOMContentLoaded", () => {
         mobileMenuToggle.addEventListener("click", (e) => {
             e.stopPropagation();
             navLinks.classList.toggle("show");
-            // টগল এর সময় আইকন ☰ থেকে ✖ এ চেঞ্জ করার জন্য
             if (navLinks.classList.contains("show")) {
                 mobileMenuToggle.textContent = "✕";
             } else {
@@ -24,7 +23,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        // স্ক্রিনের বাইরে ক্লিক করলে মেনু বন্ধ হয়ে যাবে
         document.addEventListener("click", (e) => {
             if (!mobileMenuToggle.contains(e.target) && !navLinks.contains(e.target)) {
                 navLinks.classList.remove("show");
@@ -32,7 +30,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        // যেকোনো নেভবারে লিংকে ক্লিক করলে মেনু অটো বন্ধ হবে
         navLinks.querySelectorAll("a").forEach(link => {
             link.addEventListener("click", () => {
                 navLinks.classList.remove("show");
@@ -54,37 +51,6 @@ if (navbar) {
     navbar.style.webkitBackdropFilter = "none";
     navbar.style.boxShadow = "0 5px 20px rgba(0,0,0,0.08)";
     navbar.style.transition = "none";
-}
-
-/* =========================
-   Hero Card 3D Tilt Effect
-========================= */
-const heroCard = document.querySelector(".hero-card");
-if (heroCard) {
-    heroCard.addEventListener("mousemove", (e) => {
-        let rect = heroCard.getBoundingClientRect();
-        let x = e.clientX - rect.left;
-        let y = e.clientY - rect.top;
-
-        let rotateX = ((y - rect.height / 2) / 20) * -1;
-        let rotateY = (x - rect.width / 2) / 20;
-
-        heroCard.style.transform = `
-            perspective(1000px)
-            rotateX(${rotateX}deg)
-            rotateY(${rotateY}deg)
-            scale(1.05)
-        `;
-    });
-
-    heroCard.addEventListener("mouseleave", () => {
-        heroCard.style.transform = `
-            perspective(1000px)
-            rotateX(0deg)
-            rotateY(0deg)
-            scale(1)
-        `;
-    });
 }
 
 /* =========================
@@ -157,55 +123,6 @@ document.querySelectorAll("a[href^='#']").forEach(link => {
                 e.preventDefault();
                 targetElement.scrollIntoView({ behavior: "smooth" });
             }
-        }
-    });
-});
-
-/* =========================
-   LOGIN CARD 3D EFFECT
-========================= */
-const authCard = document.querySelector(".auth-card");
-if (authCard) {
-    authCard.addEventListener("mousemove", (e) => {
-        const rect = authCard.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-
-        let rotateX = ((y - rect.height / 2) / 25) * -1;
-        let rotateY = (x - rect.width / 2) / 25;
-
-        authCard.style.transform = `
-            perspective(1000px)
-            rotateX(${rotateX}deg)
-            rotateY(${rotateY}deg)
-            scale(1.01)
-        `;
-    });
-
-    authCard.addEventListener("mouseleave", () => {
-        authCard.style.transform = `
-            perspective(1000px)
-            rotateX(0deg)
-            rotateY(0deg)
-            scale(1)
-        `;
-    });
-}
-
-/* =========================
-   INPUT FOCUS ANIMATION
-========================= */
-const inputs = document.querySelectorAll(".input-group-custom input");
-inputs.forEach(input => {
-    input.addEventListener("focus", () => {
-        if (input.parentElement) {
-            input.parentElement.style.transform = "translateY(-3px)";
-        }
-    });
-
-    input.addEventListener("blur", () => {
-        if (input.parentElement) {
-            input.parentElement.style.transform = "translateY(0)";
         }
     });
 });
